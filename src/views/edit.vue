@@ -6,7 +6,6 @@
         <textarea v-model="post.content" placeholder="Content" />
       </div>
       <div class="controls">
-        <label class="id-display">{{ post.id }}</label>
         <div class="buttons">
           <input
             class="cancel"
@@ -82,7 +81,7 @@ export default defineComponent({
 
 .controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   margin-top: 0.3em;
 }
 
