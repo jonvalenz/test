@@ -1,31 +1,63 @@
 <template>
   <div class="new-post">
     <form>
-      <input type="text" v-model="post.title" placeholder="Title" />
-      <textarea v-model="post.content" placeholder="Content" />
+      <input
+        :class="{ 'red-bg-title': isEmptyTitle }"
+        type="text"
+        v-model="post.title"
+        placeholder="Title"
+      />
+      <textarea
+        :class="{ 'red-bg-content': isEmptyContent }"
+        v-model="post.content"
+        placeholder="Content"
+      />
       <div class="controls">
-        <input type="button" @click="newPost('create-post')" value="New Post" />
+        <input type="button" @click="newPost()" value="New Post" />
       </div>
     </form>
   </div>
 </template>
 
 <script lang="ts">
-import Post from '@/models/post';
+import Post from '@/classes/post';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   emits: ['create-post'],
   setup(_props, { emit }) {
     const post = ref(new Post()).value;
+    const isEmptyTitle = ref(false);
+    const isEmptyContent = ref(false);
 
-    function newPost(event: 'create-post'): void {
-      emit(event, post);
-      post.title = '';
-      post.content = '';
+    function newPost(): void {
+      if (post.title === '') {
+        isEmptyTitle.value = true;
+
+        setTimeout(() => {
+          isEmptyTitle.value = false;
+        }, 500);
+      }
+      if (post.content === '') {
+        isEmptyContent.value = true;
+
+        setTimeout(() => {
+          isEmptyContent.value = false;
+        }, 500);
+      }
+      if (!(post.title === '' || post.content === '')) {
+        emit('create-post', post);
+        post.title = '';
+        post.content = '';
+      }
     }
 
-    return { post, newPost };
+    return {
+      post,
+      newPost,
+      isEmptyTitle,
+      isEmptyContent,
+    };
   },
 });
 </script>
@@ -37,6 +69,16 @@ export default defineComponent({
   justify-self: center;
   flex-wrap: wrap;
   flex-grow: 1;
+}
+
+.new-post form .red-bg-title {
+  background-color: red !important;
+  color: white !important;
+}
+
+.new-post form .red-bg-content {
+  background-color: red !important;
+  color: white !important;
 }
 
 .new-post form {
@@ -61,7 +103,7 @@ export default defineComponent({
   justify-content: flex-end;
 }
 
-.new-post form div.controls input[type='button'] {
+.new-post form input[type='button'] {
   padding: 1em;
   border-radius: 5px;
   margin: 0;
