@@ -56,7 +56,8 @@ export default defineComponent({
   display: block;
   flex-grow: 1;
   padding-top: 0.5em;
-  word-wrap: break-word
+  word-wrap: break-word;
+  width: 100%;
 }
 
 .post-container .content.title {
@@ -64,6 +65,7 @@ export default defineComponent({
   border-style: none none dotted none;
   font-weight: bold;
   padding-bottom: 0.2em;
+  width: 100%;
 }
 
 .post-container .controls {
