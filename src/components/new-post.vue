@@ -13,7 +13,7 @@
         placeholder="Content"
       />
       <div class="controls">
-        <input type="button" @click="newPost()" value="New Post" />
+        <input type="button" @click="newPost" value="New Post" />
       </div>
     </form>
   </div>
@@ -24,7 +24,7 @@ import Post from '@/classes/post';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  emits: ['create-post'],
+  emits: ['create'],
   setup(_props, { emit }) {
     const post = ref(new Post()).value;
     const isEmptyTitle = ref(false);
@@ -46,7 +46,7 @@ export default defineComponent({
         }, 500);
       }
       if (!(post.title === '' || post.content === '')) {
-        emit('create-post', post);
+        emit('create', post);
         post.title = '';
         post.content = '';
       }
