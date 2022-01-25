@@ -104,10 +104,6 @@ export default defineComponent({
 }
 
 .edit form {
-  border: 1px;
-  border-color: rgb(199, 199, 199);
-  border-style: solid;
-  border-radius: 15px;
   padding: 1em;
   width: 33%;
 }
