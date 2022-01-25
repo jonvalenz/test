@@ -5,10 +5,10 @@
       <div class="content blurb">{{ content }}</div>
     </div>
     <div class="controls">
-      <button class="delete" type="button" @click="$emit('delete', id)">
+      <button class="delete" type="button" @click="sendEvent('delete')">
         Delete
       </button>
-      <button class="edit" type="button" @click="$emit('edit', id)">
+      <button class="edit" type="button" @click="sendEvent('edit')">
         Edit
       </button>
     </div>
@@ -26,14 +26,21 @@ export default defineComponent({
     },
     title: {
       type: String,
-      default: 'Default Title',
+      required: true,
     },
     content: {
       type: String,
-      default: 'Default Content',
+      required: true,
     },
   },
   emits: ['delete', 'edit'],
+  setup(props, { emit }) {
+    function sendEvent(event: 'delete' | 'edit') {
+      emit(event, props.id);
+    }
+
+    return { sendEvent };
+  },
 });
 </script>
 
