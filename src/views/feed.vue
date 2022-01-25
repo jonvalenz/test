@@ -1,7 +1,7 @@
 <template>
   <div class="feed-container">
     <div class="to-center">
-      <NewPost @create-post="addPost" />
+      <NewPost @create="commitPost" />
       <div class="feed">
         <ol class="post-container">
           <li v-for="post in posts" :key="post.id">
@@ -26,7 +26,7 @@ import { getPosts, deletePost, addPost } from '@/interface/post-db-interface';
 import IPost from '@/models/post';
 import Post from '@/components/post.vue';
 import NewPost from '@/components/new-post.vue';
-import Routes from '@/constants/route-names';
+import RoutNames from '@/constants/route-names';
 
 export default defineComponent({
   name: 'Feed',
@@ -38,9 +38,13 @@ export default defineComponent({
     const router = useRouter();
     const posts: IPost[] = getPosts();
 
+    function commitPost(post: IPost) {
+      addPost(post).catch();
+    }
+
     function goToEdit(id: number) {
       router.push({
-        name: Routes.Edit,
+        name: RoutNames.Edit,
         params: { id },
       });
     }
@@ -48,7 +52,7 @@ export default defineComponent({
     return {
       posts,
       deletePost,
-      addPost,
+      commitPost,
       goToEdit,
     };
   },

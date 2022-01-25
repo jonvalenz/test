@@ -19,13 +19,13 @@
           <input
             class="cancel"
             type="button"
-            @mouseup="$router.push({ name: Routes.Feed })"
+            @mouseup="toFeed"
             value="Cancel"
           />
           <input
             class="submit"
             type="button"
-            @mouseup="editAndReturnToFeed()"
+            @mouseup="editAndReturnToFeed"
             value="Submit"
           />
         </div>
@@ -70,17 +70,22 @@ export default defineComponent({
         }, 500);
       }
       if (!(post.title === '' || post.content === '')) {
-        editPost(post);
+        editPost(post).catch();
         router.push({ name: RouteNames.Feed });
       }
+    }
+
+    function toFeed(): void {
+      router.push({ name: RouteNames.Feed });
     }
 
     return {
       post,
       editAndReturnToFeed,
-      Routes: RouteNames,
+      RouteNames,
       isEmptyTitle,
       isEmptyContent,
+      toFeed,
     };
   },
 });
