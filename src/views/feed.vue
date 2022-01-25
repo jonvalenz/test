@@ -23,10 +23,10 @@
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { getPosts, deletePost, addPost } from '@/interface/post-db-interface';
-import { IPost } from '@/models/post';
+import IPost from '@/models/post';
 import Post from '@/components/post.vue';
 import NewPost from '@/components/new-post.vue';
-import Routes from '@/models/route-names';
+import Routes from '@/constants/route-names';
 
 export default defineComponent({
   name: 'Feed',
