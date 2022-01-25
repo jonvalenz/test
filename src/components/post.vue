@@ -51,6 +51,10 @@ export default defineComponent({
   flex-wrap:wrap;
 }
 
+.post {
+  width: 100%;
+}
+
 .post-container .content {
   text-align: left;
   display: block;
