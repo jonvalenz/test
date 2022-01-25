@@ -1,7 +1,7 @@
 <template>
   <div class="feed-container">
     <div class="to-center">
-      <NewPost @create="commitPost" />
+      <NewPost @create="createPost" />
       <div class="feed">
         <ol class="post-container">
           <li v-for="post in posts" :key="post.id">
@@ -38,7 +38,7 @@ export default defineComponent({
     const router = useRouter();
     const posts: IPost[] = getPosts();
 
-    function commitPost(post: IPost) {
+    function createPost(post: IPost) {
       addPost(post).catch();
     }
 
@@ -52,7 +52,7 @@ export default defineComponent({
     return {
       posts,
       deletePost,
-      commitPost,
+      createPost,
       goToEdit,
     };
   },
