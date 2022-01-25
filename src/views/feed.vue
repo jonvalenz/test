@@ -3,7 +3,7 @@
     <div class="to-center">
       <NewPost @create="createPost" />
       <div class="feed">
-        <ol class="post-container">
+        <ol class="posts">
           <li v-for="post in posts" :key="post.id">
             <Post
               :id="post.id"
@@ -90,7 +90,7 @@ li {
   background: white;
 }
 
-.post-container {
+.posts {
   padding: 0;
   display: flex;
   flex-direction: column-reverse;

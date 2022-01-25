@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <div class="post-container">
     <div class="post">
       <div class="content title">{{ title }}</div>
       <div class="content blurb">{{ content }}</div>
@@ -45,7 +45,13 @@ export default defineComponent({
 </script>
 
 <style>
-.post .content {
+
+.post-container {
+  display: flex;
+  flex-wrap:wrap;
+}
+
+.post-container .content {
   text-align: left;
   display: block;
   flex-grow: 1;
@@ -53,20 +59,21 @@ export default defineComponent({
   word-wrap: break-word
 }
 
-.post .content.title {
+.post-container .content.title {
   border: 0.1em;
   border-style: none none dotted none;
   font-weight: bold;
   padding-bottom: 0.2em;
 }
 
-.post .controls {
+.post-container .controls {
   display: flex;
   justify-content: right;
   padding-top: 1em;
+  width: 100%;
 }
 
-.post .controls button {
+.post-container .controls button {
   margin-left: 0.3em;
 }
 
