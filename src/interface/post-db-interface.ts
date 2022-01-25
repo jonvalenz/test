@@ -1,13 +1,16 @@
-import Post from '@/models/post';
+import Post from '@/classes/post';
 import postsRef from '../assets/post-db';
 
-export function addPost(post: Post): void {
-  const newPost: Post = new Post(
-    Date.now(),
-    post.title,
-    post.content,
-  );
-  postsRef.value.push(newPost);
+export function addPost(post: Post): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (post.content === '' || Number.isNaN(post.id) || post.content === '') {
+      reject(new Error('Invalid Post'));
+    } else {
+      const newPost: Post = new Post(Date.now(), post.title, post.content);
+      postsRef.value.push(newPost);
+      resolve('success');
+    }
+  });
 }
 
 export function getPosts(): Post[] {
@@ -16,11 +19,9 @@ export function getPosts(): Post[] {
 
 export function getPost(id: number): Post {
   let returnPost = new Post();
-  console.log(`Post request with ID: ${id}`);
   postsRef.value.forEach((post) => {
     if (post.id === id) {
       returnPost = post;
-      console.log('Return found');
     }
   });
   return returnPost;
@@ -41,12 +42,12 @@ export function editPost(post: Post): void {
 }
 
 export default function (): {
-    addPost: (post: Post) => void;
-    getPost: (id: number) => Post;
-    getPosts: () => Post[];
-    deletePost: (id: number) => void;
-    editPost: (post: Post) => void;
-    } {
+  addPost: (post: Post) => Promise<string>;
+  getPost: (id: number) => Post;
+  getPosts: () => Post[];
+  deletePost: (id: number) => void;
+  editPost: (post: Post) => void;
+  } {
   return {
     addPost,
     getPost,
