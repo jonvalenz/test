@@ -50,6 +50,7 @@ export default defineComponent({
   display: block;
   flex-grow: 1;
   padding-top: 0.5em;
+  word-wrap: break-word
 }
 
 .post .content.title {
