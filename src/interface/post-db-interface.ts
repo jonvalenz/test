@@ -35,10 +35,17 @@ export function deletePost(id: number): void {
   });
 }
 
-export function editPost(post: Post): void {
+export function editPost(post: Post): Promise<string> {
   const postToEdit: Post = getPost(post.id);
-  postToEdit.title = post.title;
-  postToEdit.content = post.content;
+  return new Promise((resolve, reject) => {
+    if (postToEdit.content === '' || postToEdit.title === '') {
+      reject(new Error('Content or Title Empty'));
+    } else {
+      postToEdit.title = post.title;
+      postToEdit.content = post.content;
+      resolve('success');
+    }
+  });
 }
 
 export default function (): {
@@ -46,7 +53,7 @@ export default function (): {
   getPost: (id: number) => Post;
   getPosts: () => Post[];
   deletePost: (id: number) => void;
-  editPost: (post: Post) => void;
+  editPost: (post: Post) => Promise<string>;
   } {
   return {
     addPost,
