@@ -1,4 +1,4 @@
-import Post from '@/models/post';
+import Post from '@/classes/post';
 
 const posts: Post[] = [
   new Post(
