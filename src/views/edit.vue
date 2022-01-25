@@ -3,13 +3,13 @@
     <form>
       <div class="text-input">
         <input
-          :class="{ 'red-bg-title': isEmptyTitle }"
+          :class="{ 'validation-error': isEmptyTitle }"
           type="text"
           v-model="post.title"
           placeholder="Title"
         />
         <textarea
-          :class="{ 'red-bg-content': isEmptyContent }"
+          :class="{ 'validation-error': isEmptyContent }"
           v-model="post.content"
           placeholder="Content"
         />
@@ -92,11 +92,7 @@ export default defineComponent({
 </script>
 
 <style>
-.red-bg-title {
-  background-color: red !important;
-  color: white !important;
-}
-.red-bg-content {
+.validation-error {
   background-color: red !important;
   color: white !important;
 }

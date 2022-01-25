@@ -2,13 +2,13 @@
   <div class="new-post">
     <form>
       <input
-        :class="{ 'red-bg-title': isEmptyTitle }"
+        :class="{ 'validation-error': isEmptyTitle }"
         type="text"
         v-model="post.title"
         placeholder="Title"
       />
       <textarea
-        :class="{ 'red-bg-content': isEmptyContent }"
+        :class="{ 'validation-error': isEmptyContent }"
         v-model="post.content"
         placeholder="Content"
       />
@@ -71,12 +71,7 @@ export default defineComponent({
   flex-grow: 1;
 }
 
-.new-post form .red-bg-title {
-  background-color: red !important;
-  color: white !important;
-}
-
-.new-post form .red-bg-content {
+.validation-error {
   background-color: red !important;
   color: white !important;
 }

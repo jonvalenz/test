@@ -73,4 +73,8 @@ textarea {
 input[type='text']:focus {
   background-color: rgb(167, 167, 167);
 }
+
+textarea:focus {
+  background-color: rgb(167, 167, 167);
+}
 </style>
