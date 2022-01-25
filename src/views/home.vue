@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <p>Naruto Uzumaki</p>
+    <p>Jon Morris Valenzuela</p>
   </div>
 </template>
 
