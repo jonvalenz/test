@@ -1,21 +1,21 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import Routes from '@/models/route-names';
+import RouteNames from '@/constants/route-names';
 import Home from '../views/home.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: Routes.Home,
+    name: RouteNames.Home,
     component: Home,
   },
   {
     path: '/feed',
-    name: Routes.Feed,
+    name: RouteNames.Feed,
     component: () => import('../views/feed.vue'),
   },
   {
     path: '/edit/:id',
-    name: Routes.Edit,
+    name: RouteNames.Edit,
     component: () => import('../views/edit.vue'),
   },
 ];
