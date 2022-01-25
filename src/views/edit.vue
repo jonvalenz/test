@@ -2,8 +2,17 @@
   <div class="edit">
     <form>
       <div class="text-input">
-        <input type="text" v-model="post.title" placeholder="Title" />
-        <textarea v-model="post.content" placeholder="Content" />
+        <input
+          :class="{ 'red-bg-title': isEmptyTitle }"
+          type="text"
+          v-model="post.title"
+          placeholder="Title"
+        />
+        <textarea
+          :class="{ 'red-bg-content': isEmptyContent }"
+          v-model="post.content"
+          placeholder="Content"
+        />
       </div>
       <div class="controls">
         <div class="buttons">
@@ -26,17 +35,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { editPost, getPost } from '@/interface/post-db-interface';
-import { IPost } from '@/models/post';
-import Routes from '@/models/route-names';
+import IPost from '@/models/post';
+import RouteNames from '@/constants/route-names';
 
 export default defineComponent({
   name: 'Edit',
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const isEmptyTitle = ref(false);
+    const isEmptyContent = ref(false);
 
     const { id, title, content } = getPost(
       parseInt(route.params.id.toString(), 10),
@@ -44,16 +55,47 @@ export default defineComponent({
     const post: IPost = { id, title, content };
 
     function editAndReturnToFeed(): void {
-      editPost(post);
-      router.push({ name: Routes.Feed });
+      if (post.title === '') {
+        isEmptyTitle.value = true;
+
+        setTimeout(() => {
+          isEmptyTitle.value = false;
+        }, 500);
+      }
+      if (post.content === '') {
+        isEmptyContent.value = true;
+
+        setTimeout(() => {
+          isEmptyContent.value = false;
+        }, 500);
+      }
+      if (!(post.title === '' || post.content === '')) {
+        editPost(post);
+        router.push({ name: RouteNames.Feed });
+      }
     }
 
-    return { post, editAndReturnToFeed, Routes };
+    return {
+      post,
+      editAndReturnToFeed,
+      Routes: RouteNames,
+      isEmptyTitle,
+      isEmptyContent,
+    };
   },
 });
 </script>
 
 <style>
+.red-bg-title {
+  background-color: red !important;
+  color: white !important;
+}
+.red-bg-content {
+  background-color: red !important;
+  color: white !important;
+}
+
 .edit {
   display: flex;
   justify-content: center;
